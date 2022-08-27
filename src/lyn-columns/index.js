@@ -1,9 +1,15 @@
+wp.hooks.removeFilter('editor.BlockListBlock', 'core/editor/layout/with-layout-styles')
+
+
 /**
  * WordPress dependencies
  */
 import {__} from '@wordpress/i18n'
 import {columns as icon} from '@wordpress/icons'
 import {registerBlockType} from '@wordpress/blocks'
+import "./style.scss"
+
+
 
 /**
  * Internal dependencies
@@ -13,6 +19,8 @@ import metadata from './block.json'
 import save from './save'
 import variations from './variations'
 import transforms from './transforms'
+
+
 
 const {name} = metadata
 
@@ -67,8 +75,7 @@ registerBlockType(name, {
                     },
                     {
                         name: 'core/paragraph',
-                        attributes: {
-                            /* translators: example text. */
+                        attributes: {                            /* translators: example text. */
                             content: __(
                                 'Nam risus massa, ullamcorper consectetur eros fermentum, porta aliquet ligula. Sed vel mauris nec enim.'
                             ),

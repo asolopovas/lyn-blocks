@@ -34,7 +34,7 @@ function ColumnEdit( {
 	setAttributes,
 	clientId,
 } ) {
-	const classes = classnames( 'block-core-columns', {
+	const classes = classnames({
 		[ `is-vertically-aligned-${ verticalAlignment }` ]: verticalAlignment,
 	} );
 
@@ -76,6 +76,7 @@ function ColumnEdit( {
 	};
 
 	const widthWithUnit = Number.isFinite( width ) ? width + '%' : width;
+    console.log({classes})
 	const blockProps = useBlockProps( {
 		className: classes,
 		style: widthWithUnit ? { flexBasis: widthWithUnit } : undefined,

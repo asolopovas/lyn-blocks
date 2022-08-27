@@ -30,7 +30,7 @@ const variations = [
 				/>
 			</SVG>
 		),
-		innerBlocks: [ [ 'core/column' ] ],
+		innerBlocks: [ [ 'lyn/column' ] ],
 		scope: [ 'block' ],
 	},
 	{
@@ -52,7 +52,7 @@ const variations = [
 			</SVG>
 		),
 		isDefault: true,
-		innerBlocks: [ [ 'core/column' ], [ 'core/column' ] ],
+		innerBlocks: [ [ 'lyn/column' ], [ 'lyn/column' ] ],
 		scope: [ 'block' ],
 	},
 	{
@@ -74,8 +74,8 @@ const variations = [
 			</SVG>
 		),
 		innerBlocks: [
-			[ 'core/column', { width: '33.33%' } ],
-			[ 'core/column', { width: '66.66%' } ],
+			[ 'lyn/column', { width: '33.33%' } ],
+			[ 'lyn/column', { width: '66.66%' } ],
 		],
 		scope: [ 'block' ],
 	},
@@ -98,8 +98,8 @@ const variations = [
 			</SVG>
 		),
 		innerBlocks: [
-			[ 'core/column', { width: '66.66%' } ],
-			[ 'core/column', { width: '33.33%' } ],
+			[ 'lyn/column', { width: '66.66%' } ],
+			[ 'lyn/column', { width: '33.33%' } ],
 		],
 		scope: [ 'block' ],
 	},
@@ -121,9 +121,9 @@ const variations = [
 			</SVG>
 		),
 		innerBlocks: [
-			[ 'core/column' ],
-			[ 'core/column' ],
-			[ 'core/column' ],
+			[ 'lyn/column' ],
+			[ 'lyn/column' ],
+			[ 'lyn/column' ],
 		],
 		scope: [ 'block' ],
 	},
@@ -145,9 +145,9 @@ const variations = [
 			</SVG>
 		),
 		innerBlocks: [
-			[ 'core/column', { width: '25%' } ],
-			[ 'core/column', { width: '50%' } ],
-			[ 'core/column', { width: '25%' } ],
+			[ 'lyn/column', { width: '25%' } ],
+			[ 'lyn/column', { width: '50%' } ],
+			[ 'lyn/column', { width: '25%' } ],
 		],
 		scope: [ 'block' ],
 	},

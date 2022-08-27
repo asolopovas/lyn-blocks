@@ -32,9 +32,9 @@ export default function save( { attributes } ) {
 		style = { flexBasis };
 	}
 
+    console.log({wrapperClasses});
 	const blockProps = useBlockProps.save( {
 		className: wrapperClasses,
-		style,
 	} );
 	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
 

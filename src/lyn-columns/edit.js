@@ -1,3 +1,4 @@
+import "./editor.scss"
 /**
  * External dependencies
  */
@@ -74,8 +75,7 @@ function ColumnsEditContainer({
     setAttributes({gridCols: count})
 
     const classes = classnames({
-        [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
-        [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
+        [`grid`] : true,
         [`grid-cols-${count}`]: count,
         [`gap-${gridGap}`]: gridGap,
     })

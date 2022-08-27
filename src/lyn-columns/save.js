@@ -12,9 +12,9 @@ export default function save(settings) {
     const {isStackedOnMobile, verticalAlignment, gridCols, gridGap} = settings.attributes
 
     const className = classnames({
+        ['grid'] : true,
         [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
         [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
-        ['grid'] : true,
         [`gap-${gridGap}`]: gridGap,
         [`grid-cols-${gridCols}`]: gridCols
     })
@@ -22,6 +22,5 @@ export default function save(settings) {
     const blockProps = useBlockProps.save({className})
     const innerBlocksProps = useInnerBlocksProps.save(blockProps)
 
-    console.log({innerBlocksProps, attributes: settings.attributes})
     return <div {...innerBlocksProps} />
 }
