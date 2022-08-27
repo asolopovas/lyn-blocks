@@ -3,6 +3,7 @@
         "WordPress/gutenberg",
         "."
     ],
+    "phpVersion": "8.1",
     "config": {
         "WP_DEBUG": true,
         "SCRIPT_DEBUG": true
