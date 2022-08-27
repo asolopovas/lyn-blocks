@@ -21,6 +21,9 @@
 	},
 	"dependencies": {
 		"@wordpress/icons": "^9.7.0",
-		"classnames": "^2.3.1"
+		"classnames": "^2.3.1",
+		"postcss": "^8.4.16",
+		"postcss-cli": "^10.0.0",
+		"postcss-multiple-tailwind": "^1.0.1"
 	}
 }
