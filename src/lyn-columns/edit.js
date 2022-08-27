@@ -57,9 +57,10 @@ function ColumnsEditContainer({
     setAttributes,
     updateAlignment,
     updateColumns,
+    updateGap,
     clientId,
 }) {
-    const {isStackedOnMobile, verticalAlignment, columnCount} = attributes
+    const {isStackedOnMobile, verticalAlignment, gridGap, gridCols} = attributes
 
     const {count} = useSelect(
         (select) => {
@@ -70,11 +71,13 @@ function ColumnsEditContainer({
         [clientId]
     )
 
+    setAttributes({gridCols: count})
+
     const classes = classnames({
-        ['grid']: true,
         [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
         [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
-        [`grid-cols-${columnCount}`]: columnCount,
+        [`grid-cols-${count}`]: count,
+        [`gap-${gridGap}`]: gridGap,
     })
 
     const blockProps = useBlockProps({
@@ -96,6 +99,14 @@ function ColumnsEditContainer({
             </BlockControls>
             <InspectorControls>
                 <PanelBody>
+                    <RangeControl
+                        label={__('Grid Gap')}
+                        value={gridGap}
+                        onChange={(value) => updateGap(value)}
+                        default={2}
+                        min={1}
+                        max={Math.max(96, count)}
+                    />
                     <RangeControl
                         label={__('Columns')}
                         value={count}
@@ -128,6 +139,12 @@ function ColumnsEditContainer({
 
 const ColumnsEditContainerWrapper = withDispatch(
     (dispatch, ownProps, registry) => ({
+        updateGap(gridGap) {
+            const {clientId, setAttributes} = ownProps
+            const {updateBlockAttributes} = dispatch(blockEditorStore)
+            const {getBlockOrder} = registry.select(blockEditorStore)
+            setAttributes({gridGap})
+        },
         /**
          * Update all child Column blocks with a new vertical alignment setting
          * based on whatever alignment is passed in. This allows change to parent

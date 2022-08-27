@@ -100,12 +100,14 @@ function ColumnsEditContainer(_ref) {
     setAttributes,
     updateAlignment,
     updateColumns,
+    updateGap,
     clientId
   } = _ref;
   const {
     isStackedOnMobile,
     verticalAlignment,
-    columnCount
+    gridGap,
+    gridCols
   } = attributes;
   const {
     count
@@ -114,11 +116,14 @@ function ColumnsEditContainer(_ref) {
       count: select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.store).getBlockCount(clientId)
     };
   }, [clientId]);
+  setAttributes({
+    gridCols: count
+  });
   const classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()({
-    ['grid']: true,
     [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
     [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
-    [`grid-cols-${columnCount}`]: columnCount
+    [`grid-cols-${count}`]: count,
+    [`gap-${gridGap}`]: gridGap
   });
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)({
     className: classes
@@ -132,6 +137,13 @@ function ColumnsEditContainer(_ref) {
     onChange: updateAlignment,
     value: verticalAlignment
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Grid Gap'),
+    value: gridGap,
+    onChange: value => updateGap(value),
+    default: 2,
+    min: 1,
+    max: Math.max(96, count)
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.RangeControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Columns'),
     value: count,
     onChange: value => updateColumns(count, value),
@@ -150,6 +162,22 @@ function ColumnsEditContainer(_ref) {
 }
 
 const ColumnsEditContainerWrapper = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_6__.withDispatch)((dispatch, ownProps, registry) => ({
+  updateGap(gridGap) {
+    const {
+      clientId,
+      setAttributes
+    } = ownProps;
+    const {
+      updateBlockAttributes
+    } = dispatch(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.store);
+    const {
+      getBlockOrder
+    } = registry.select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.store);
+    setAttributes({
+      gridGap
+    });
+  },
+
   /**
    * Update all child Column blocks with a new vertical alignment setting
    * based on whatever alignment is passed in. This allows change to parent
@@ -329,12 +357,15 @@ function save(settings) {
   const {
     isStackedOnMobile,
     verticalAlignment,
-    columnCount
+    gridCols,
+    gridGap
   } = settings.attributes;
   const className = classnames__WEBPACK_IMPORTED_MODULE_1___default()({
     [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
     [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
-    [`grid grid-cols-${columnCount}`]: columnCount
+    ['grid']: true,
+    [`gap-${gridGap}`]: gridGap,
+    [`grid-cols-${gridCols}`]: gridCols
   });
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
     className
@@ -342,8 +373,7 @@ function save(settings) {
   const innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useInnerBlocksProps.save(blockProps);
   console.log({
     innerBlocksProps,
-    blockProps,
-    className
+    attributes: settings.attributes
   });
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", innerBlocksProps);
 }
@@ -962,7 +992,7 @@ module.exports = window["wp"]["primitives"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"lyn/columns","title":"Lyntoch Columns","category":"design","description":"Columns with Tailwind Styles","textdomain":"default","attributes":{"verticalAlignment":{"type":"string"},"isStackedOnMobile":{"type":"boolean","default":true}},"supports":{"anchor":true,"align":["wide","full"],"html":false,"color":{"gradients":true,"link":true,"__experimentalDefaultControls":{"background":true,"text":true}},"spacing":{"blockGap":{"__experimentalDefault":"2em"},"margin":["top","bottom"],"padding":true,"__experimentalDefaultControls":{"padding":true}},"__experimentalLayout":{"allowSwitching":false,"allowInheriting":false,"allowEditing":false,"default":{"type":"flex","flexWrap":"nowrap"}},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true,"__experimentalDefaultControls":{"color":true,"radius":true,"style":true,"width":true}}},"editorScript":"file:index.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"lyn/columns","title":"Lyntoch Columns","category":"design","description":"Columns with Tailwind Styles","textdomain":"default","attributes":{"gridCols":{"type":"number"},"gridGap":{"type":"number","default":2},"verticalAlignment":{"type":"string"},"isStackedOnMobile":{"type":"boolean","default":true}},"supports":{"anchor":true,"align":["wide","full"],"html":false,"color":{"gradients":true,"link":true,"__experimentalDefaultControls":{"background":true,"text":true}},"spacing":{"blockGap":{"__experimentalDefault":"2em"},"margin":["top","bottom"],"padding":true,"__experimentalDefaultControls":{"padding":true}},"__experimentalLayout":{"allowSwitching":false,"allowInheriting":false,"allowEditing":false,"default":{"type":"flex","flexWrap":"nowrap"}},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true,"__experimentalDefaultControls":{"color":true,"radius":true,"style":true,"width":true}}},"editorScript":"file:index.js"}');
 
 /***/ })
 

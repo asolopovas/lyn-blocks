@@ -7,6 +7,13 @@
     "description": "Columns with Tailwind Styles",
     "textdomain": "default",
     "attributes": {
+        "gridCols": {
+            "type": "number"
+        },
+        "gridGap": {
+            "type": "number",
+            "default": 2
+        },
         "verticalAlignment": {
             "type": "string"
         },
@@ -65,5 +72,5 @@
             }
         }
     },
-	"editorScript": "file:index.js"
+    "editorScript": "file:index.js"
 }
