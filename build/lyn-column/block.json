@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "lyn/column",
+  "title": "Lyntouch Column",
+  "category": "text",
+  "parent": [
+    "lyn/columns"
+  ],
+  "description": "Columns with Tailwind Styles",
+  "textdomain": "default",
+  "attributes": {
+    "verticalAlignment": {
+      "type": "string"
+    },
+    "width": {
+      "type": "string"
+    },
+    "allowedBlocks": {
+      "type": "array"
+    },
+    "templateLock": {
+      "type": [
+        "string",
+        "boolean"
+      ],
+      "enum": [
+        "all",
+        "insert",
+        false
+      ]
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "reusable": false,
+    "html": false,
+    "color": {
+      "gradients": true,
+      "link": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true
+      }
+    },
+    "spacing": {
+      "blockGap": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "padding": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "__experimentalLayout": true
+  },
+  "editorScript": "file:index.js"
+}
