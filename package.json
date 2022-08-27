@@ -7,6 +7,7 @@
 	"scripts": {
 		"wp-env": "wp-env start",
 		"start": "wp-scripts start",
+		"start:hot": "wp-scripts start --hot",
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",

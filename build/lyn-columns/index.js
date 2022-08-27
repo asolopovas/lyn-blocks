@@ -33,238 +33,6 @@ const columns = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 /***/ }),
 
-/***/ "./src/lyn-columns/deprecated.js":
-/*!***************************************!*\
-  !*** ./src/lyn-columns/deprecated.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__);
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Given an HTML string for a deprecated columns inner block, returns the
- * column index to which the migrated inner block should be assigned. Returns
- * undefined if the inner block was not assigned to a column.
- *
- * @param {string} originalContent Deprecated Columns inner block HTML.
- *
- * @return {?number} Column to which inner block is to be assigned.
- */
-
-function getDeprecatedLayoutColumn(originalContent) {
-  let {
-    doc
-  } = getDeprecatedLayoutColumn;
-
-  if (!doc) {
-    doc = document.implementation.createHTMLDocument('');
-    getDeprecatedLayoutColumn.doc = doc;
-  }
-
-  let columnMatch;
-  doc.body.innerHTML = originalContent;
-
-  for (const classListItem of doc.body.firstChild.classList) {
-    if (columnMatch = classListItem.match(/^layout-column-(\d+)$/)) {
-      return Number(columnMatch[1]) - 1;
-    }
-  }
-}
-
-const migrateCustomColors = attributes => {
-  if (!attributes.customTextColor && !attributes.customBackgroundColor) {
-    return attributes;
-  }
-
-  const style = {
-    color: {}
-  };
-
-  if (attributes.customTextColor) {
-    style.color.text = attributes.customTextColor;
-  }
-
-  if (attributes.customBackgroundColor) {
-    style.color.background = attributes.customBackgroundColor;
-  }
-
-  return { ...(0,lodash__WEBPACK_IMPORTED_MODULE_1__.omit)(attributes, ['customTextColor', 'customBackgroundColor']),
-    style,
-    isStackedOnMobile: true
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([{
-  attributes: {
-    verticalAlignment: {
-      type: 'string'
-    },
-    backgroundColor: {
-      type: 'string'
-    },
-    customBackgroundColor: {
-      type: 'string'
-    },
-    customTextColor: {
-      type: 'string'
-    },
-    textColor: {
-      type: 'string'
-    }
-  },
-  migrate: migrateCustomColors,
-
-  save(_ref) {
-    let {
-      attributes
-    } = _ref;
-    const {
-      verticalAlignment,
-      backgroundColor,
-      customBackgroundColor,
-      textColor,
-      customTextColor
-    } = attributes;
-    const backgroundClass = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.getColorClassName)('background-color', backgroundColor);
-    const textClass = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.getColorClassName)('color', textColor);
-    const className = classnames__WEBPACK_IMPORTED_MODULE_2___default()({
-      'has-background': backgroundColor || customBackgroundColor,
-      'has-text-color': textColor || customTextColor,
-      [backgroundClass]: backgroundClass,
-      [textClass]: textClass,
-      [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment
-    });
-    const style = {
-      backgroundColor: backgroundClass ? undefined : customBackgroundColor,
-      color: textClass ? undefined : customTextColor
-    };
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: className ? className : undefined,
-      style: style
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InnerBlocks.Content, null));
-  }
-
-}, {
-  attributes: {
-    columns: {
-      type: 'number',
-      default: 2
-    }
-  },
-
-  isEligible(attributes, innerBlocks) {
-    // Since isEligible is called on every valid instance of the
-    // Columns block and a deprecation is the unlikely case due to
-    // its subsequent migration, optimize for the `false` condition
-    // by performing a naive, inaccurate pass at inner blocks.
-    const isFastPassEligible = innerBlocks.some(innerBlock => /layout-column-\d+/.test(innerBlock.originalContent));
-
-    if (!isFastPassEligible) {
-      return false;
-    } // Only if the fast pass is considered eligible is the more
-    // accurate, durable, slower condition performed.
-
-
-    return innerBlocks.some(innerBlock => getDeprecatedLayoutColumn(innerBlock.originalContent) !== undefined);
-  },
-
-  migrate(attributes, innerBlocks) {
-    const columns = innerBlocks.reduce((accumulator, innerBlock) => {
-      const {
-        originalContent
-      } = innerBlock;
-      let columnIndex = getDeprecatedLayoutColumn(originalContent);
-
-      if (columnIndex === undefined) {
-        columnIndex = 0;
-      }
-
-      if (!accumulator[columnIndex]) {
-        accumulator[columnIndex] = [];
-      }
-
-      accumulator[columnIndex].push(innerBlock);
-      return accumulator;
-    }, []);
-    const migratedInnerBlocks = columns.map(columnBlocks => (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.createBlock)('core/column', {}, columnBlocks));
-    return [{ ...(0,lodash__WEBPACK_IMPORTED_MODULE_1__.omit)(attributes, ['columns']),
-      isStackedOnMobile: true
-    }, migratedInnerBlocks];
-  },
-
-  save(_ref2) {
-    let {
-      attributes
-    } = _ref2;
-    const {
-      columns
-    } = attributes;
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `has-${columns}-columns`
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InnerBlocks.Content, null));
-  }
-
-}, {
-  attributes: {
-    columns: {
-      type: 'number',
-      default: 2
-    }
-  },
-
-  migrate(attributes, innerBlocks) {
-    attributes = { ...(0,lodash__WEBPACK_IMPORTED_MODULE_1__.omit)(attributes, ['columns']),
-      isStackedOnMobile: true
-    };
-    return [attributes, innerBlocks];
-  },
-
-  save(_ref3) {
-    let {
-      attributes
-    } = _ref3;
-    const {
-      verticalAlignment,
-      columns
-    } = attributes;
-    const wrapperClasses = classnames__WEBPACK_IMPORTED_MODULE_2___default()(`has-${columns}-columns`, {
-      [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment
-    });
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: wrapperClasses
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InnerBlocks.Content, null));
-  }
-
-}]);
-
-/***/ }),
-
 /***/ "./src/lyn-columns/edit.js":
 /*!*********************************!*\
   !*** ./src/lyn-columns/edit.js ***!
@@ -336,7 +104,8 @@ function ColumnsEditContainer(_ref) {
   } = _ref;
   const {
     isStackedOnMobile,
-    verticalAlignment
+    verticalAlignment,
+    columnCount
   } = attributes;
   const {
     count
@@ -346,8 +115,10 @@ function ColumnsEditContainer(_ref) {
     };
   }, [clientId]);
   const classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()({
+    ['grid']: true,
     [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
-    [`is-not-stacked-on-mobile`]: !isStackedOnMobile
+    [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
+    [`grid-cols-${columnCount}`]: columnCount
   });
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)({
     className: classes
@@ -419,7 +190,8 @@ const ColumnsEditContainerWrapper = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_
    */
   updateColumns(previousColumns, newColumns) {
     const {
-      clientId
+      clientId,
+      setAttributes
     } = ownProps;
     const {
       replaceInnerBlocks
@@ -428,7 +200,10 @@ const ColumnsEditContainerWrapper = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_
       getBlocks
     } = registry.select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.store);
     let innerBlocks = getBlocks(clientId);
-    const hasExplicitWidths = (0,_utils__WEBPACK_IMPORTED_MODULE_8__.hasExplicitPercentColumnWidths)(innerBlocks); // Redistribute available width for existing inner blocks.
+    const hasExplicitWidths = (0,_utils__WEBPACK_IMPORTED_MODULE_8__.hasExplicitPercentColumnWidths)(innerBlocks);
+    setAttributes({
+      columnCount: newColumns
+    }); // Redistribute available width for existing inner blocks.
 
     const isAddingColumn = newColumns > previousColumns;
 
@@ -550,22 +325,26 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-function save(_ref) {
-  let {
-    attributes
-  } = _ref;
+function save(settings) {
   const {
     isStackedOnMobile,
-    verticalAlignment
-  } = attributes;
+    verticalAlignment,
+    columnCount
+  } = settings.attributes;
   const className = classnames__WEBPACK_IMPORTED_MODULE_1___default()({
     [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
-    [`is-not-stacked-on-mobile`]: !isStackedOnMobile
+    [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
+    [`grid grid-cols-${columnCount}`]: columnCount
   });
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
     className
   });
   const innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useInnerBlocksProps.save(blockProps);
+  console.log({
+    innerBlocksProps,
+    blockProps,
+    className
+  });
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", innerBlocksProps);
 }
 
@@ -1264,20 +1043,19 @@ var __webpack_exports__ = {};
   \**********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "metadata": () => (/* reexport default export from named module */ _block_json__WEBPACK_IMPORTED_MODULE_4__),
+/* harmony export */   "metadata": () => (/* reexport default export from named module */ _block_json__WEBPACK_IMPORTED_MODULE_3__),
 /* harmony export */   "name": () => (/* binding */ name)
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/columns.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/columns.js");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _deprecated__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./deprecated */ "./src/lyn-columns/deprecated.js");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/lyn-columns/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/lyn-columns/block.json");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./save */ "./src/lyn-columns/save.js");
-/* harmony import */ var _variations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./variations */ "./src/lyn-columns/variations.js");
-/* harmony import */ var _transforms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./transforms */ "./src/lyn-columns/transforms.js");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/lyn-columns/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/lyn-columns/block.json");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./save */ "./src/lyn-columns/save.js");
+/* harmony import */ var _variations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./variations */ "./src/lyn-columns/variations.js");
+/* harmony import */ var _transforms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transforms */ "./src/lyn-columns/transforms.js");
 /**
  * WordPress dependencies
  */
@@ -1293,14 +1071,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const {
   name
-} = _block_json__WEBPACK_IMPORTED_MODULE_4__;
+} = _block_json__WEBPACK_IMPORTED_MODULE_3__;
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)(name, {
-  icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_8__["default"],
-  variations: _variations__WEBPACK_IMPORTED_MODULE_6__["default"],
+  icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__["default"],
+  variations: _variations__WEBPACK_IMPORTED_MODULE_5__["default"],
   example: {
     viewportWidth: 600,
     // Columns collapse "@media (max-width: 599px)".
@@ -1341,10 +1118,9 @@ const {
       }]
     }]
   },
-  deprecated: _deprecated__WEBPACK_IMPORTED_MODULE_2__["default"],
-  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"],
-  save: _save__WEBPACK_IMPORTED_MODULE_5__["default"],
-  transforms: _transforms__WEBPACK_IMPORTED_MODULE_7__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: _save__WEBPACK_IMPORTED_MODULE_4__["default"],
+  transforms: _transforms__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 })();
 

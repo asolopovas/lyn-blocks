@@ -1,23 +1,25 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import classnames from 'classnames'
 
 /**
  * WordPress dependencies
  */
-import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
+import {useInnerBlocksProps, useBlockProps} from '@wordpress/block-editor'
 
-export default function save( { attributes } ) {
-	const { isStackedOnMobile, verticalAlignment } = attributes;
+export default function save(settings) {
+    const {isStackedOnMobile, verticalAlignment, columnCount} = settings.attributes
 
-	const className = classnames( {
-		[ `are-vertically-aligned-${ verticalAlignment }` ]: verticalAlignment,
-		[ `is-not-stacked-on-mobile` ]: ! isStackedOnMobile,
-	} );
+    const className = classnames({
+        [`are-vertically-aligned-${verticalAlignment}`]: verticalAlignment,
+        [`is-not-stacked-on-mobile`]: !isStackedOnMobile,
+        [`grid grid-cols-${columnCount}`]: columnCount
+    })
 
-	const blockProps = useBlockProps.save( { className } );
-	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
+    const blockProps = useBlockProps.save({className})
+    const innerBlocksProps = useInnerBlocksProps.save(blockProps)
 
-	return <div { ...innerBlocksProps } />;
+    console.log({innerBlocksProps, blockProps, className})
+    return <div {...innerBlocksProps} />
 }
