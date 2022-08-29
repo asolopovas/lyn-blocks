@@ -7,6 +7,9 @@
   "description": "Columns with Tailwind Styles",
   "textdomain": "default",
   "attributes": {
+    "customClasses": {
+      "type": "array"
+    },
     "gridCols": {
       "type": "number"
     },

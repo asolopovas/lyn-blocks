@@ -8,5 +8,8 @@ module.exports = {
         {
           pattern: /grid/,
         },
+        {
+          pattern: /items/,
+        },
       ],
 }

@@ -1,0 +1,1 @@
+{"version":3,"file":"lyn-column/style-index.css","mappings":";;;AAAA;EACI;AACJ,C","sources":["webpack://lyn-blocks/./src/lyn-column/style.scss"],"sourcesContent":[".test {\n    color: #fff;\n}\n"],"names":[],"sourceRoot":""}

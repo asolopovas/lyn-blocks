@@ -18,13 +18,13 @@ const transforms = {
 				const columnWidth = +( 100 / blocks.length ).toFixed( 2 );
 				const innerBlocksTemplate = blocks.map(
 					( { name, attributes, innerBlocks } ) => [
-						'core/column',
+						'lyn/column',
 						{ width: `${ columnWidth }%` },
 						[ [ name, { ...attributes }, innerBlocks ] ],
 					]
 				);
 				return createBlock(
-					'core/columns',
+					'lyn/columns',
 					{},
 					createBlocksFromInnerBlocksTemplate( innerBlocksTemplate )
 				);
@@ -67,9 +67,9 @@ const transforms = {
 					media = [ 'core/video', { id, src: url } ];
 				}
 				const innerBlocksTemplate = [
-					[ 'core/column', { width: `${ mediaWidth }%` }, [ media ] ],
+					[ 'lyn/column', { width: `${ mediaWidth }%` }, [ media ] ],
 					[
-						'core/column',
+						'lyn/column',
 						{ width: `${ 100 - mediaWidth }%` },
 						innerBlocks,
 					],
@@ -78,7 +78,7 @@ const transforms = {
 					innerBlocksTemplate.reverse();
 				}
 				return createBlock(
-					'core/columns',
+					'lyn/columns',
 					{
 						align,
 						backgroundColor,

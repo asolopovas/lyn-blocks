@@ -14,7 +14,9 @@ import {
     PanelBody,
     RangeControl,
     ToggleControl,
+FormTokenField,
 } from '@wordpress/components'
+
 
 import {
     InspectorControls,
@@ -42,6 +44,8 @@ import {
     toWidthPrecision,
 } from './utils'
 
+import BlockMultiSelect from "./components/multiSelect"
+
 /**
  * Allowed blocks constant is passed to InnerBlocks precisely as specified here.
  * The contents of the array should never change.
@@ -51,17 +55,29 @@ import {
  * @constant
  * @type {string[]}
  */
-const ALLOWED_BLOCKS = ['core/column']
+const ALLOWED_BLOCKS = ['lyn/column']
+
+const tailwindClasses = [
+    // 'grid-cols-{1-6}'
+    'grid-cols-1',
+    'grid-cols-2',
+    'grid-cols-3',
+    'grid-cols-4',
+    'grid-cols-5',
+    'grid-cols-6',
+
+]
 
 function ColumnsEditContainer({
     attributes,
     setAttributes,
     updateAlignment,
     updateColumns,
+    updateClasses,
     updateGap,
     clientId,
 }) {
-    const {isStackedOnMobile, verticalAlignment, gridGap, gridCols} = attributes
+    const {isStackedOnMobile, verticalAlignment, gridGap, gridCols, customClasses} = attributes
 
     const {count} = useSelect(
         (select) => {
@@ -73,9 +89,10 @@ function ColumnsEditContainer({
     )
 
     setAttributes({gridCols: count})
+        console.log({customClasses});
 
     const classes = classnames({
-        [`grid`] : true,
+        [`grid`]: true,
         [`grid-cols-${count}`]: count,
         [`gap-${gridGap}`]: gridGap,
     })
@@ -106,6 +123,11 @@ function ColumnsEditContainer({
                         default={2}
                         min={1}
                         max={Math.max(96, count)}
+                    />
+                    <FormTokenField
+                        value={customClasses}
+                        suggestions={tailwindClasses}
+                        onChange={(value) => updateClasses(value)}
                     />
                     <RangeControl
                         label={__('Columns')}
@@ -139,6 +161,12 @@ function ColumnsEditContainer({
 
 const ColumnsEditContainerWrapper = withDispatch(
     (dispatch, ownProps, registry) => ({
+        updateClasses(customClasses) {
+            const {clientId, setAttributes} = ownProps
+            const {updateBlockAttributes} = dispatch(blockEditorStore)
+            const {getBlockOrder} = registry.select(blockEditorStore)
+            setAttributes({customClasses})
+        },
         updateGap(gridGap) {
             const {clientId, setAttributes} = ownProps
             const {updateBlockAttributes} = dispatch(blockEditorStore)

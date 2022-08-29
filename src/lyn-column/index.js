@@ -5,6 +5,12 @@ import {registerBlockType} from '@wordpress/blocks'
  */
 import {column as icon} from '@wordpress/icons'
 
+export function getTailwindAlignClass(type) {
+    if (type === 'top') return 'start'
+    if (type === 'bottom') return 'end'
+    if (type === 'center') return 'center'
+}
+
 /**
  * Internal dependencies
  */
