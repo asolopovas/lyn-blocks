@@ -5,19 +5,12 @@
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"scripts": {
-		"wp-env": "wp-env start",
-		"start": "wp-scripts start",
-		"start:hot": "wp-scripts start --hot",
-		"build": "wp-scripts build",
-		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip"
+		"wp-env": "wp-env start"
 	},
 	"devDependencies": {
+		"@vitejs/plugin-react-refresh": "^1.3.6",
 		"@wordpress/env": "^5.2.0",
-		"@wordpress/scripts": "^24.0.0"
+		"laravel-vite-plugin": "^0.6.0"
 	},
 	"dependencies": {
 		"@wordpress/icons": "^9.7.0",
