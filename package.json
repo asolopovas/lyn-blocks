@@ -5,8 +5,8 @@
     "author": "The WordPress Contributors",
     "license": "GPL-2.0-or-later",
     "scripts": {
-        "start": "vite",
-        "wp-env": "wp-env start",
+        "start": "wp-env start",
+        "dev": "vite",
         "build": "vite build"
     },
     "dependencies": {
