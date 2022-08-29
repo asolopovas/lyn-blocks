@@ -1,10 +1,9 @@
 import fs from 'fs'
 import {defineConfig} from 'vite'
 import {fileURLToPath} from 'node:url'
-import react from '@vitejs/plugin-react'
 import wpResolve from './vite/resolve-wp-dependencies.js'
 import laravel from 'laravel-vite-plugin'
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import svgr from '@honkhonk/vite-plugin-svgr'
 
 
@@ -28,10 +27,6 @@ export default defineConfig({
     plugins: [
         wpResolve(),
         svgr(),
-        react({
-            jsxRuntime: 'classic',
-            jsxImportSource: '@wordpress/element',
-        }),
         laravel({
             input: [
                 './src/blocks/lyn-column/index.js',
@@ -40,7 +35,10 @@ export default defineConfig({
             publicDirectory: 'dist',
             buildDirectory: '.'
         }),
-        reactRefresh(),
+        react({
+            jsxRuntime: 'classic',
+            jsxImportSource: '@wordpress/element',
+        }),
     ],
     esbuild: {
         loader: 'jsx',
