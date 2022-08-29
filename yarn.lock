@@ -3126,6 +3126,11 @@ postcss-load-config@^3.1.4:
     lilconfig "^2.0.5"
     yaml "^1.10.2"
 
+postcss-multiple-tailwind@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-multiple-tailwind/-/postcss-multiple-tailwind-1.0.1.tgz#2e16453e3bb535c3eb252f2b5ce2c421eab3a5ca"
+  integrity sha512-2HFAvNLBfEFQn9x4XZsOrsTdzJCqiTyOK3TCDafZlY0c4LQztybL73e26X3dHg2i3jwc700M6cTLLthCmAgAVw==
+
 postcss-nested@5.0.6:
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-5.0.6.tgz#466343f7fc8d3d46af3e7dba3fcd47d052a945bc"
