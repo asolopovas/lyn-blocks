@@ -15,7 +15,6 @@
         }
     ],
     "require": {
-        "symfony/var-dumper": "^6.1",
-        "symfony/dotenv": "^6.1"
+        "symfony/var-dumper": "^6.1"
     }
 }
