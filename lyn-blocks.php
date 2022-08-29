@@ -18,10 +18,7 @@ use Lyntouch\Vite;
 
 defined('ABSPATH') || exit;
 
-if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-    require_once(__DIR__ . '/vendor/autoload.php');
-}
-
+require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/src/filters.php');
 
 
@@ -43,3 +40,6 @@ function buildViteAssets(): array
         "/src/Blocks/Gallery/sass/photoswipe.scss",
     ], __DIR__ . "/dist"))->build();
 }
+
+
+$viteAssets = dump(buildViteAssets());

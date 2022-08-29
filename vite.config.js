@@ -1,9 +1,7 @@
 import fs from 'fs'
 import {defineConfig} from 'vite'
-import laravel from 'laravel-vite-plugin'
-
-import reactRefresh from '@vitejs/plugin-react-refresh'
-import reactSvgPlugin from 'vite-plugin-react-svg'
+import react from '@vitejs/plugin-react'
+import wpResolve from './vite/resolve-wp-dependencies.js'
 
 const keyPath = `./ssl`
 const hmrHost = process.env.HMR_HOST || 'localhost'
@@ -24,25 +22,23 @@ export default defineConfig({
         // },
     },
     rollupOptions: {
-        external: ['jquery'],
+        input: {
+            'lyn-column': fileURLToPath(new URL('./src/blocks/lyn-column/index.js', import.meta.url)),
+            'lyn-columns': fileURLToPath(new URL('./src/blocks/lyn-columns/index.js', import.meta.url)),
+            // other entrypoints
+        },
         output: {
-            jquery: '$',
+            chunkFileNames: '[name].[ext]',
+            entryFileNames: '[name].js',
+            format: 'iife',
         },
     },
     plugins: [
-        laravel({
-            input: [
-                'src/Blocks/Swiper/swiper.js',
-                'src/Blocks/Gallery/photoswipe.js',
-                'src/assets/global.scss',
-                'src/Blocks/Swiper/sass/swiper.scss',
-                'src/Blocks/Gallery/sass/photoswipe.scss',
-            ],
-            publicDirectory: 'build',
-            buildDirectory: '.'
+        wpResolve(),
+        react({
+            jsxRuntime: 'classic',
+            jsxImportSource: '@wordpress/element',
         }),
-        reactSvgPlugin(),
-        reactRefresh(),
     ],
     esbuild: {
         loader: 'jsx',
