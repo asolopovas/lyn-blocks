@@ -1,0 +1,15 @@
+{
+    "name": "andrius/lyn-blocks",
+    "autoload": {
+        "psr-4": {
+            "Andrius\\LynBlocks\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "andrius",
+            "email": "andrius.solopovas@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -5,7 +5,7 @@ import laravel from 'laravel-vite-plugin'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import reactSvgPlugin from 'vite-plugin-react-svg'
 
-const keyPath = `./src/ssl`
+const keyPath = `./ssl`
 const hmrHost = process.env.HMR_HOST || 'localhost'
 
 export default defineConfig({
@@ -38,7 +38,7 @@ export default defineConfig({
                 'src/Blocks/Swiper/sass/swiper.scss',
                 'src/Blocks/Gallery/sass/photoswipe.scss',
             ],
-            publicDirectory: 'dist',
+            publicDirectory: 'build',
             buildDirectory: '.'
         }),
         reactSvgPlugin(),
