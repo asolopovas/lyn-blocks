@@ -1,6 +1,6 @@
 <?php
 
-namespace Lyntouch\Lib;
+namespace Lyntouch;
 
 class Vite
 {

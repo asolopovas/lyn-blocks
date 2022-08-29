@@ -14,6 +14,13 @@
  * @package           create-block
  */
 
+use Lyntouch\Vite;
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once(__DIR__ . '/vendor/autoload.php');
+}
+
+
 defined('ABSPATH') || exit;
 
 function register_lyn_blocks()
@@ -22,3 +29,15 @@ function register_lyn_blocks()
     register_block_type(__DIR__ . '/build/lyn-columns');
 }
 add_action('init', 'register_lyn_blocks');
+
+
+function buildViteAssets(): array
+{
+    return (new Vite([
+        "/src/js/blocks/blocks.js",
+        "/src/Blocks/Swiper/swiper.js",
+        "/src/assets/global.scss",
+        "/src/Blocks/Swiper/sass/swiper.scss",
+        "/src/Blocks/Gallery/sass/photoswipe.scss",
+    ], __DIR__ . "/dist"))->build();
+}

@@ -2,7 +2,7 @@
     "name": "andrius/lyn-blocks",
     "autoload": {
         "psr-4": {
-            "Andrius\\LynBlocks\\": "src/"
+            "Lyntouch\\": "src/"
         }
     },
     "authors": [
