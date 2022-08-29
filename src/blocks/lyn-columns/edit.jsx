@@ -44,7 +44,7 @@ import {
     toWidthPrecision,
 } from './utils'
 
-import BlockMultiSelect from "./components/multiSelect"
+import BlockMultiSelect from "./components/multiSelect.jsx"
 
 /**
  * Allowed blocks constant is passed to InnerBlocks precisely as specified here.

@@ -14,9 +14,9 @@ export function getTailwindAlignClass(type) {
 /**
  * Internal dependencies
  */
-import edit from './edit'
+import edit from './edit.jsx'
 import metadata from './block.json'
-import save from './save'
+import save from './save.jsx'
 
 const {name} = metadata
 

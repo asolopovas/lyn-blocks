@@ -14,10 +14,10 @@ import "./style.scss"
 /**
  * Internal dependencies
  */
-import edit from './edit'
+import edit from './edit.jsx'
 import metadata from './block.json'
-import save from './save'
-import variations from './variations'
+import save from './save.jsx'
+import variations from './variations.jsx'
 import transforms from './transforms'
 
 

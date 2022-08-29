@@ -33,13 +33,11 @@ add_action('init', 'register_lyn_blocks');
 function buildViteAssets(): array
 {
     return (new Vite([
-        "/src/js/blocks/blocks.js",
-        "/src/Blocks/Swiper/swiper.js",
-        "/src/assets/global.scss",
-        "/src/Blocks/Swiper/sass/swiper.scss",
-        "/src/Blocks/Gallery/sass/photoswipe.scss",
+        './src/blocks/lyn-column/index.js',
+        './src/blocks/lyn-columns/index.js',
     ], __DIR__ . "/dist"))->build();
 }
 
+// dump(buildViteAssets());
 
-$viteAssets = dump(buildViteAssets());
+viteAssetsLoader(buildViteAssets());

@@ -33,7 +33,7 @@ class Vite
     {
         return str_contains($this->manifestDirectory, 'themes')
             ? parse_url(get_stylesheet_directory_uri(), PHP_URL_PATH) . 'build'
-            : parse_url(plugin_dir_url(realpath(__DIR__ . '/..')), PHP_URL_PATH) . 'dist';
+            : parse_url(plugin_dir_url(realpath(__DIR__ )), PHP_URL_PATH) . 'dist';
     }
 
     private function normalizePaths(array $paths): array

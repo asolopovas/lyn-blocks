@@ -108,12 +108,6 @@ function ColumnEdit({
 
     return (
         <>
-            <BlockControls>
-                <BlockVerticalAlignmentToolbar
-                    onChange={updateAlignment}
-                    value={verticalAlignment}
-                />
-            </BlockControls>
             <InspectorControls>
                 <PanelBody title={__('Column settings')}>
                     <UnitControl
