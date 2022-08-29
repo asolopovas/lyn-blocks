@@ -22,8 +22,11 @@ export default function wpResolve() {
 
             options.external = options.external.concat(Object.keys(external))
             options.external.push(wordpressMatch)
+            return options
+        },
+        outputOptions: (outputOptions) => {
 
-            const outputGlobals = options.output.globals
+            const outputGlobals = outputOptions.globals
 
             const resolveGlobals = (id) => {
                 if (typeof outputGlobals === 'object' && outputGlobals.hasOwnProperty(id) && outputGlobals[id]) {
@@ -48,9 +51,7 @@ export default function wpResolve() {
                 }
             }
 
-            options.output.globals = resolveGlobals
-
-            return options
+            outputOptions.globals = resolveGlobals
         }
     }
 }
