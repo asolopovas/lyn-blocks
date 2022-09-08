@@ -22,12 +22,12 @@ require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/src/filters.php');
 
 
-function register_lyn_blocks()
-{
-    register_block_type(__DIR__ . '/build/lyn-column');
-    register_block_type(__DIR__ . '/build/lyn-columns');
-}
-add_action('init', 'register_lyn_blocks');
+// function register_lyn_blocks()
+// {
+//     register_block_type(__DIR__ . '/build/lyn-column');
+//     register_block_type(__DIR__ . '/build/lyn-columns');
+// }
+// add_action('init', 'register_lyn_blocks');
 
 
 function buildViteAssets(): array
@@ -38,20 +38,13 @@ function buildViteAssets(): array
     ], __DIR__ . "/dist"))->build();
 }
 
-// dump(buildViteAssets());
 
-function lyn_init()
-{
-    viteAssetsLoader(buildViteAssets());
-}
-
-add_action('admin_enqueue_scripts', 'lyn_init', 10, 0);
+viteAssetsLoader(buildViteAssets());
 
 function print_react_tag()
 {
     echo <<<'HEREB'
     <script type="module">
-        console.log('test');
         import RefreshRuntime from "http://127.0.0.1:5173/@react-refresh"
         RefreshRuntime.injectIntoGlobalHook(window)
         window.$RefreshReg$ = () => {}

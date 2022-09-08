@@ -23,6 +23,7 @@ const {name} = metadata
 export {metadata, name}
 
 registerBlockType(name, {
+    title: "Lyntouch Column",
     icon,
     edit,
     save, // Object shorthand property - same as writing: save: save,

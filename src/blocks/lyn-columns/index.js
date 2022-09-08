@@ -10,7 +10,6 @@ import {registerBlockType} from '@wordpress/blocks'
 import "./style.scss"
 
 
-
 /**
  * Internal dependencies
  */
@@ -20,13 +19,12 @@ import save from './save.jsx'
 import variations from './variations.jsx'
 import transforms from './transforms'
 
-
-
 const {name} = metadata
 
 export {metadata, name}
 
 registerBlockType(name, {
+    title: "Lyntouch Columns",
     icon,
     variations,
     example: {
