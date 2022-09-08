@@ -39,7 +39,7 @@ export default defineConfig({
             jsxRuntime: 'classic',
             jsxImportSource: '@wordpress/element',
         }),
-    ],
+],
     esbuild: {
         loader: 'jsx',
     },

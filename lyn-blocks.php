@@ -40,4 +40,25 @@ function buildViteAssets(): array
 
 // dump(buildViteAssets());
 
-viteAssetsLoader(buildViteAssets());
+function lyn_init()
+{
+    viteAssetsLoader(buildViteAssets());
+}
+
+add_action('admin_enqueue_scripts', 'lyn_init', 10, 0);
+
+function print_react_tag()
+{
+    echo <<<'HEREB'
+    <script type="module">
+        console.log('test');
+        import RefreshRuntime from "http://127.0.0.1:5173/@react-refresh"
+        RefreshRuntime.injectIntoGlobalHook(window)
+        window.$RefreshReg$ = () => {}
+        window.$RefreshSig$ = () => (type) => type
+        window.__vite_plugin_react_preamble_installed__ = true
+    </script>
+    HEREB;
+}
+
+add_action('admin_head', 'print_react_tag', 9,0);
