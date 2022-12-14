@@ -1,8 +1,6 @@
 import fs from 'fs'
 import {defineConfig} from 'vite'
-import {fileURLToPath} from 'node:url'
-import wpResolve from './vite/resolve-wp-dependencies.js'
-import laravel from 'laravel-vite-plugin'
+import gutenberg from '/home/andrius/git/vite-gutenberg-plugin/dist/index.js'
 import react from '@vitejs/plugin-react'
 import svgr from '@honkhonk/vite-plugin-svgr'
 
