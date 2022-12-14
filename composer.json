@@ -1,9 +1,6 @@
 {
     "name": "andrius/lyn-blocks",
     "autoload": {
-        "files": [
-            "src/helpers.php"
-        ],
         "psr-4": {
             "Lyntouch\\": "src/"
         }

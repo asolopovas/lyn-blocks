@@ -24,12 +24,11 @@
         "@wordpress/env": "^5.2.0",
         "autoprefixer": "^10.4.8",
         "cssnano": "^5.1.13",
-        "laravel-vite-plugin": "^0.6.0",
         "postcss": "^8.4.16",
         "postcss-multiple-tailwind": "^1.0.1",
         "sass": "^1.43.4",
         "toml": "^3.0.0",
-        "vite": "^3.0.9",
+        "vite": "^4.0.0",
         "vite-plugin-react-svg": "^0.2.0",
         "vite-svg-loader": "^3.4.0"
     }

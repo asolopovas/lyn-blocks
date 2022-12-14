@@ -1,35 +1,7 @@
 {
-  "src/blocks/lyn-column/index.js": {
-    "file": "assets/index.51e6d45d.js",
-    "src": "src/blocks/lyn-column/index.js",
-    "isEntry": true,
-    "imports": [
-      "_index.21ce5c8d.js"
-    ],
-    "css": [
-      "assets/index.994a6ecc.css"
-    ]
-  },
-  "src/blocks/lyn-columns/index.js": {
-    "file": "assets/index.a7629548.js",
-    "src": "src/blocks/lyn-columns/index.js",
-    "isEntry": true,
-    "imports": [
-      "_index.21ce5c8d.js"
-    ],
-    "css": [
-      "assets/index.0c64cfb9.css"
-    ]
-  },
-  "_index.21ce5c8d.js": {
-    "file": "assets/index.21ce5c8d.js"
-  },
-  "src/blocks/lyn-column/index.css": {
-    "file": "assets/index.994a6ecc.css",
-    "src": "src/blocks/lyn-column/index.css"
-  },
-  "src/blocks/lyn-columns/index.css": {
-    "file": "assets/index.0c64cfb9.css",
-    "src": "src/blocks/lyn-columns/index.css"
+  "src/blocks/test-block/index.jsx": {
+    "file": "assets/index.53f79157.js",
+    "src": "src/blocks/test-block/index.jsx",
+    "isEntry": true
   }
 }

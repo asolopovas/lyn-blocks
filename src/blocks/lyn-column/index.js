@@ -1,5 +1,5 @@
-wp.hooks.removeFilter('editor.BlockListBlock', 'core/editor/layout/with-layout-styles')
 import {registerBlockType} from '@wordpress/blocks'
+// wp.hooks.removeFilter('editor.BlockListBlock', 'core/editor/layout/with-layout-styles')
 /**
  * WordPress dependencies
  */

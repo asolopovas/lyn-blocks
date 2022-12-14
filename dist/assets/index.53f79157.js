@@ -1,0 +1,1 @@
+import e from"react";import{registerBlockType as t}from"@wordpress/blocks";t("lyntouch/test-block",{title:"Test Block",edit:function(){return e.createElement("p",null," Hello world (from the editor)")},save:function(){return e.createElement("p",null," Hola mundo (from the frontend) ")}});
