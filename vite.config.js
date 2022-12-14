@@ -3,31 +3,45 @@ import {defineConfig} from 'vite'
 import {fileURLToPath} from 'node:url'
 import wpResolve from './vite/resolve-wp-dependencies.js'
 import laravel from 'laravel-vite-plugin'
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react'
 import svgr from '@honkhonk/vite-plugin-svgr'
 
+const examplePlugin = () => {
+    let config
 
-const keyPath = `./ssl`
-const hmrHost = 'localhost'
+    return {
+        name: 'read-config',
 
-// Resolve absolute paths for entrypoints
-const entryPoints = [
-    './src/blocks/lyn-column/index.js',
-    './src/blocks/lyn-columns/index.js'
-].map(entry => fileURLToPath(new URL(entry, import.meta.url)))
+        configResolved(resolvedConfig) {
+            // store the resolved config
+            config = resolvedConfig
+        },
+
+        // use stored config in other hooks
+        transform(code, id) {
+            if (config.command === 'serve') {
+                console.log({code, id})
+                // dev: plugin invoked by dev server
+            } else {
+                // build: plugin invoked by Rollup
+            }
+        },
+    }
+}
 
 export default defineConfig({
-    // server: {
-    //     host: hmrHost,
-    //     https: {
-    //         key: fs.readFileSync(`${keyPath}/${hmrHost}.key`),
-    //         cert: fs.readFileSync(`${keyPath}/${hmrHost}.crt`),
-    //     },
-    // },
+    build: '.',
+    server: {
+        host: hmrHost,
+        https: {
+            key: fs.readFileSync(`${keyPath}/${hmrHost}.key`),
+            cert: fs.readFileSync(`${keyPath}/${hmrHost}.crt`),
+        },
+    },
     plugins: [
         wpResolve(),
         svgr(),
-        laravel({
+        gutenberg({
             input: [
                 './src/blocks/lyn-column/index.js',
                 './src/blocks/lyn-columns/index.js'
@@ -39,7 +53,7 @@ export default defineConfig({
             jsxRuntime: 'classic',
             jsxImportSource: '@wordpress/element',
         }),
-],
+    ],
     esbuild: {
         loader: 'jsx',
     },

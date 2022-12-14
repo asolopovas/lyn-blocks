@@ -5,9 +5,8 @@
     "author": "The WordPress Contributors",
     "license": "GPL-2.0-or-later",
     "scripts": {
-        "start": "wp-env start",
         "dev": "vite",
-        "build": "vite build"
+        "prod": "vite build"
     },
     "dependencies": {
         "@wordpress/block-editor": "^9.1.0",
