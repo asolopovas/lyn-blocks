@@ -16,6 +16,9 @@
 
 defined('ABSPATH') || exit;
 
+if (is_admin()) {
+}
+
 add_action('init', 'register_lyn_blocks');
 function register_lyn_blocks()
 {
